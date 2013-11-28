@@ -14,4 +14,6 @@ public class ResponseFlags {
     public final static String FAILURE_PASSWORD_ERROR = "FAILURE_PASSWORD_ERROR";
     //邮箱已经被使用
     public final static String FAILURE_USER_EMAIL_USED = "FAILURE_USER_EMAIL_USED";
+    //昵称已经被使用
+    public final static String FAILURE_USER_NICK_NAME_USED = "FAILURE_USER_NICK_NAME_USED";
 }

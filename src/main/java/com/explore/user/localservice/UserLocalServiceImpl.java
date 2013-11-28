@@ -1,6 +1,8 @@
 package com.explore.user.localservice;
 
+import com.explore.user.entity.UserEmailEntity;
 import com.explore.user.entity.UserEntity;
+import com.explore.user.entity.UserNickNameEntity;
 import com.wolf.framework.dao.REntityDao;
 import com.wolf.framework.dao.annotation.InjectRDao;
 import com.wolf.framework.dao.condition.InquireRedisIndexContext;
@@ -19,6 +21,12 @@ public class UserLocalServiceImpl implements UserLocalService {
 
     @InjectRDao(clazz = UserEntity.class)
     private REntityDao<UserEntity> userEntityDao;
+    //
+    @InjectRDao(clazz = UserEmailEntity.class)
+    private REntityDao<UserEmailEntity> userEmailEntityDao;
+    //
+    @InjectRDao(clazz = UserNickNameEntity.class)
+    private REntityDao<UserNickNameEntity> userNickNameEntityDao;
 
     @Override
     public void init() {
@@ -27,8 +35,18 @@ public class UserLocalServiceImpl implements UserLocalService {
     @Override
     public boolean isUserEmailExist(String userEmail) {
         boolean result = false;
-        long num = this.userEntityDao.countByIndex("userEmail", userEmail);
-        if (num > 0) {
+        UserEmailEntity userEmailEntity = this.userEmailEntityDao.inquireByKey(userEmail);
+        if (userEmailEntity != null) {
+            result = true;
+        }
+        return result;
+    }
+    
+    @Override
+    public boolean isNickNameExist(String nickName) {
+        boolean result = false;
+        UserNickNameEntity userNickNameEntity = this.userNickNameEntityDao.inquireByKey(nickName);
+        if (userNickNameEntity != null) {
             result = true;
         }
         return result;
@@ -47,18 +65,22 @@ public class UserLocalServiceImpl implements UserLocalService {
     @Override
     public UserEntity insertAndInquireUser(Map<String, String> parameterMap) {
         UserEntity userEntity = this.userEntityDao.insertAndInquire(parameterMap);
+        //保存userEmail和userId映射
+        Map<String, String> insertMap = userEntity.toMap();
+        this.userEmailEntityDao.insert(insertMap);
+        //保存nickName和userId映射
+        this.userNickNameEntityDao.insert(insertMap);
         return userEntity;
     }
 
     @Override
     public UserEntity inquireUserByUserEmail(String userEmail) {
         UserEntity userEntity;
-        InquireRedisIndexContext inquireRedisIndexContext = new InquireRedisIndexContext("userEmail", userEmail);
-        List<UserEntity> userEntityList = this.userEntityDao.inquireByIndex(inquireRedisIndexContext);
-        if (userEntityList.isEmpty()) {
+        UserEmailEntity userEmailEntity = this.userEmailEntityDao.inquireByKey(userEmail);
+        if (userEmailEntity == null) {
             userEntity = null;
         } else {
-            userEntity = userEntityList.get(0);
+            userEntity = this.userEntityDao.inquireByKey(userEmailEntity.getUserId());
         }
         return userEntity;
     }

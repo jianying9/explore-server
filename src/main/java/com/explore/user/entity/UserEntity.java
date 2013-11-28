@@ -26,7 +26,7 @@ public final class UserEntity extends Entity implements Parameter {
     private String userId;
     //
     @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_32, desc = "昵称")
-    @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "昵称")
+    @RColumnConfig(desc = "昵称")
     private String nickName;
     //
     @RColumnConfig(desc = "密码md5")
@@ -34,7 +34,7 @@ public final class UserEntity extends Entity implements Parameter {
     private String password;
     //
     @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_60, desc = "邮箱")
-    @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "邮箱")
+    @RColumnConfig(desc = "邮箱")
     private String userEmail;
     //
     @ParameterConfig(basicTypeEnum = BasicTypeEnum.DATE_TIME, desc = "注册时间")
