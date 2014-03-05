@@ -6,8 +6,8 @@ package com.explore.config;
  */
 public class ResponseFlags {
 
-    //邮箱不存在
-    public final static String FAILURE_EMAIL_NOT_EXIST = "FAILURE_EMAIL_NOT_EXIST";
+    //邮箱或昵称不存在
+    public final static String FAILURE_LOGIN_NOT_EXIST = "FAILURE_LOGIN_NOT_EXIST";
     //用户id不存在
     public final static String FAILURE_USER_ID_NOT_EXIST = "FAILURE_USER_ID_NOT_EXIST";
     //密码错误

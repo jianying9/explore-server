@@ -29,8 +29,8 @@ public class RegisterServiceImplJUnitTest extends AbstractExploreTest {
     @Test
     public void test() {
         Map<String, String> parameterMap = new HashMap<String, String>(2, 1);
-        parameterMap.put("nickName", "aladdin");
-        parameterMap.put("userEmail", "aladdin@explore.com");
+        parameterMap.put("nickName", "aladdin1");
+        parameterMap.put("userEmail", "aladdin1@explore.com");
         parameterMap.put("password", "670b14728ad9902aecba32e22fa4f6bd");
         String result = this.testHandler.execute(ActionNames.REGISTER, parameterMap);
         System.out.println(result);

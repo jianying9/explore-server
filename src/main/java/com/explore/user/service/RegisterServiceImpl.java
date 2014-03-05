@@ -6,7 +6,6 @@ import com.explore.config.ResponseFlags;
 import com.explore.user.entity.UserEntity;
 import com.explore.user.localservice.UserLocalService;
 import com.wolf.framework.local.InjectLocalService;
-import com.wolf.framework.service.ParameterTypeEnum;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
 import com.wolf.framework.worker.context.MessageContext;
@@ -18,9 +17,9 @@ import java.util.Map;
  */
 @ServiceConfig(
         actionName = ActionNames.REGISTER,
-        parameterTypeEnum = ParameterTypeEnum.PARAMETER,
         importantParameter = {"nickName", "userEmail", "password"},
-        returnParameter = {"userId", "userEmail"},
+        minorParameter = {"promoter"},
+        returnParameter = {"userId", "userEmail", "nickName"},
         parametersConfigs = {UserEntity.class},
         validateSession = false,
         response = true,
@@ -51,7 +50,9 @@ public class RegisterServiceImpl implements Service {
                 } else {
                     //新增加用户
                     parameterMap.put("createTime", Long.toString(System.currentTimeMillis()));
-                    parameterMap.put("point", "0");
+                    if(parameterMap.containsKey("promoter") == false) {
+                        parameterMap.put("promoter", "");
+                    }
                     UserEntity userEntity = this.userLocalService.insertAndInquireUser(parameterMap);
                     messageContext.setEntityData(userEntity);
                     messageContext.success();

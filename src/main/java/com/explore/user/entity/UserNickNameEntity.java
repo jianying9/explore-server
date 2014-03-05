@@ -1,5 +1,6 @@
 package com.explore.user.entity;
 
+import com.explore.config.TableNames;
 import com.wolf.framework.dao.Entity;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.RColumnConfig;
@@ -13,7 +14,7 @@ import java.util.Map;
  * @author aladdin
  */
 @RDaoConfig(
-        tableName = "ExploreUserNickName")
+        tableName = TableNames.USER_NICK_NAME)
 public final class UserNickNameEntity extends Entity {
 
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.KEY, desc = "昵称")

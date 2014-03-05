@@ -1,5 +1,6 @@
 package com.explore.user.entity;
 
+import com.explore.config.TableNames;
 import com.wolf.framework.dao.Entity;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.RColumnConfig;
@@ -17,11 +18,11 @@ import java.util.Map;
  * @author aladdin
  */
 @RDaoConfig(
-        tableName = "ExploreUser")
+        tableName = TableNames.USER)
 @ParametersConfig()
 public final class UserEntity extends Entity implements Parameter {
 
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.UUID, desc = "用户id")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.LONG, desc = "用户id")
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.KEY, desc = "用户ID")
     private String userId;
     //
@@ -36,6 +37,10 @@ public final class UserEntity extends Entity implements Parameter {
     @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_60, desc = "邮箱")
     @RColumnConfig(desc = "邮箱")
     private String userEmail;
+    //
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.LONG, desc = "推广人")
+    @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "推广人")
+    private String promoter;
     //
     @ParameterConfig(basicTypeEnum = BasicTypeEnum.DATE_TIME, desc = "注册时间")
     @RColumnConfig(desc = "注册时间")
@@ -57,6 +62,10 @@ public final class UserEntity extends Entity implements Parameter {
         return userEmail;
     }
 
+    public String getPromoter() {
+        return promoter;
+    }
+    
     public long getCreateTime() {
         return createTime;
     }
@@ -73,6 +82,7 @@ public final class UserEntity extends Entity implements Parameter {
         map.put("nickName", this.nickName);
         map.put("password", this.password);
         map.put("userEmail", this.userEmail);
+        map.put("promoter", this.promoter);
         map.put("createTime", Long.toString(this.createTime));
         return map;
     }
@@ -83,6 +93,7 @@ public final class UserEntity extends Entity implements Parameter {
         this.nickName = entityMap.get("nickName");
         this.password = entityMap.get("password");
         this.userEmail = entityMap.get("userEmail");
+        this.promoter = entityMap.get("promoter");
         this.createTime = Long.parseLong(entityMap.get("createTime"));
     }
 }

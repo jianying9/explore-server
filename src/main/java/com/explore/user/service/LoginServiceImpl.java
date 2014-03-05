@@ -7,7 +7,6 @@ import com.explore.session.SessionImpl;
 import com.explore.user.entity.UserEntity;
 import com.explore.user.localservice.UserLocalService;
 import com.wolf.framework.local.InjectLocalService;
-import com.wolf.framework.service.ParameterTypeEnum;
 import com.wolf.framework.service.ResponseFlag;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
@@ -22,18 +21,17 @@ import java.util.Map;
  */
 @ServiceConfig(
         actionName = ActionNames.LOGIN,
-        parameterTypeEnum = ParameterTypeEnum.PARAMETER,
         importantParameter = {"userEmail", "password"},
         returnParameter = {"userId", "userEmail", "nickName"},
         parametersConfigs = {UserEntity.class},
         validateSession = false,
         sessionHandleTypeEnum = SessionHandleTypeEnum.SAVE,
         response = true,
-        description = "用户登录",
+        description = "用户登录,可以使用邮箱或则昵称登录",
         group = ActionGroupNames.USER,
         responseFlags = {
-    @ResponseFlag(flag = ResponseFlags.FAILURE_EMAIL_NOT_EXIST,
-            description = "邮箱已经被使用")
+    @ResponseFlag(flag = ResponseFlags.FAILURE_LOGIN_NOT_EXIST,
+            description = "邮箱或昵称不存在")
 })
 public class LoginServiceImpl implements Service {
 
@@ -46,10 +44,14 @@ public class LoginServiceImpl implements Service {
         String userEmail = parameterMap.get("userEmail");
         UserEntity userEntity = this.userLocalService.inquireUserByUserEmail(userEmail);
         if (userEntity == null) {
-            //邮箱不存在
-            messageContext.setFlag(ResponseFlags.FAILURE_EMAIL_NOT_EXIST);
+            //判断昵称是否存在
+            userEntity = this.userLocalService.inquireUserByNickName(userEmail);
+        }
+        if (userEntity == null) {
+            //登录帐号不存在
+            messageContext.setFlag(ResponseFlags.FAILURE_LOGIN_NOT_EXIST);
         } else {
-            //邮箱存在
+            //邮箱或则存在
             String password = parameterMap.get("password");
             if (userEntity.getPassword().equals(password)) {
                 String userId = userEntity.getUserId();

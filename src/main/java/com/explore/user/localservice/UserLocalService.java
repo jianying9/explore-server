@@ -16,6 +16,8 @@ public interface UserLocalService extends Local{
     public boolean isNickNameExist(String nickName);
 
     public UserEntity inquireUserByUserEmail(String userEmail);
+    
+    public UserEntity inquireUserByNickName(String nickName);
 
     public UserEntity inquireUserByUserId(String userId);
 
