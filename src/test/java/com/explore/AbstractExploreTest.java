@@ -28,7 +28,7 @@ public abstract class AbstractExploreTest {
         parameterMap.put(FrameworkConfig.REDIS_MAX_POOL_SIZE, "1");
         parameterMap.put(FrameworkConfig.REDIS_MIN_POOL_SIZE, "2");
         this.testHandler = new TestHandler(parameterMap);
-        Session session = new SessionImpl("293c8faf-8d5e-43c7-9a71-7ce327466c9f");
+        Session session = new SessionImpl("100001");
         this.testHandler.setSession(session);
     }
 

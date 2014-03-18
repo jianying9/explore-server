@@ -10,5 +10,5 @@ public class ActionGroupNames {
 
     public final static String USER = "用户接口";
     
-    
+    public final static String ITEM = "物品接口";
 }

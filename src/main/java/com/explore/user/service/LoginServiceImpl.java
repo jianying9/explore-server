@@ -42,10 +42,10 @@ public class LoginServiceImpl implements Service {
     public void execute(MessageContext messageContext) {
         Map<String, String> parameterMap = messageContext.getParameterMap();
         String userEmail = parameterMap.get("userEmail");
-        UserEntity userEntity = this.userLocalService.inquireUserByUserEmail(userEmail);
+        UserEntity userEntity = this.userLocalService.inquireUserByNickName(userEmail);
         if (userEntity == null) {
             //判断昵称是否存在
-            userEntity = this.userLocalService.inquireUserByNickName(userEmail);
+            userEntity = this.userLocalService.inquireUserByUserEmail(userEmail);
         }
         if (userEntity == null) {
             //登录帐号不存在

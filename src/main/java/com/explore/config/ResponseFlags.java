@@ -16,4 +16,6 @@ public class ResponseFlags {
     public final static String FAILURE_USER_EMAIL_USED = "FAILURE_USER_EMAIL_USED";
     //昵称已经被使用
     public final static String FAILURE_USER_NICK_NAME_USED = "FAILURE_USER_NICK_NAME_USED";
+    //点数不足
+    public final static String FAILURE_USER_POINT_LESS = "FAILURE_USER_POINT_LESS";
 }

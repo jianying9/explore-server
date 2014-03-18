@@ -18,4 +18,16 @@ public class ActionNames {
     public final static String LOGIN = "LOGIN";
     //退出
     public final static String LOGOUT = "LOGOUT";
+    //赚取积分
+    public final static String MAKE_POINT = "MAKE_POINT";
+    //消费积分
+    public final static String CONSUME_POINT = "CONSUME_POINT";
+    //-------------兑换物品------------------
+    //增加物品
+    public final static String INSERT_ITEM = "INSERT_ITEM";
+    //删除物品
+    public final static String DELETE_ITEM = "DELETE_ITEM";
+    //删除物品
+    public final static String INQUIRE_ITEM = "INQUIRE_ITEM";
+    
 }

@@ -5,6 +5,7 @@ import com.explore.key.localservice.KeyLocalService;
 import com.explore.user.entity.UserEmailEntity;
 import com.explore.user.entity.UserEntity;
 import com.explore.user.entity.UserNickNameEntity;
+import com.explore.user.entity.UserPointEntity;
 import com.wolf.framework.dao.REntityDao;
 import com.wolf.framework.dao.annotation.InjectRDao;
 import com.wolf.framework.local.InjectLocalService;
@@ -29,6 +30,9 @@ public class UserLocalServiceImpl implements UserLocalService {
     //
     @InjectRDao(clazz = UserNickNameEntity.class)
     private REntityDao<UserNickNameEntity> userNickNameEntityDao;
+    //
+    @InjectRDao(clazz = UserPointEntity.class)
+    private REntityDao<UserPointEntity> userPointEntityDao;
     //
     @InjectLocalService()
     private KeyLocalService keyLocalService;
@@ -112,5 +116,25 @@ public class UserLocalServiceImpl implements UserLocalService {
     @Override
     public UserEntity updateUserAndInquire(Map<String, String> parameterMap) {
         return this.userEntityDao.updateAndInquire(parameterMap);
+    }
+
+    @Override
+    public long increaseMyPoint(String userId, long point) {
+        return this.userPointEntityDao.increase(userId, "myPoint", point);
+    }
+
+    @Override
+    public long increasePromoterPoint(String userId, long point) {
+        return this.userPointEntityDao.increase(userId, "promoterPoint", point);
+    }
+
+    @Override
+    public long increaseConsumePoint(String userId, long point) {
+        return this.userPointEntityDao.increase(userId, "consumePoint", point);
+    }
+
+    @Override
+    public UserPointEntity inquireUserPointByUserId(String userId) {
+        return this.userPointEntityDao.inquireByKey(userId);
     }
 }
