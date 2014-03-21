@@ -29,8 +29,10 @@ public class InquireItemServiceImpl implements Service {
     
     @Override
     public void execute(MessageContext messageContext) {
-        int pageIndex = messageContext.getPageIndex();
-        int pageSize = messageContext.getPageSize();
+        long pageIndex = messageContext.getPageIndex();
+        long pageSize = messageContext.getPageSize();
+        long pageTotal = this.itemLocalService.inquireItemCount();
+        messageContext.setPageTotal(pageTotal);
         List<ItemEntity> itemEntityList = this.itemLocalService.inquireItemEntity(pageIndex, pageSize);
         messageContext.setEntityListData(itemEntityList);
         messageContext.success();

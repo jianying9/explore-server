@@ -35,7 +35,7 @@ public final class ItemEntity extends Entity implements Parameter {
     private String dataUrl;
     //
     @RColumnConfig(desc = "描述")
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_32, desc = "密码md5")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_120, desc = "密码md5")
     private String desc;
     //
     @ParameterConfig(basicTypeEnum = BasicTypeEnum.LONG, desc = "花费点数")

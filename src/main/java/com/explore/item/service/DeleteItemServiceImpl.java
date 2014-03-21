@@ -8,6 +8,7 @@ import com.wolf.framework.local.InjectLocalService;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
 import com.wolf.framework.worker.context.MessageContext;
+import java.util.Map;
 
 /**
  *
@@ -16,6 +17,7 @@ import com.wolf.framework.worker.context.MessageContext;
 @ServiceConfig(
         actionName = ActionNames.DELETE_ITEM,
         importantParameter = {"itemId"},
+        returnParameter = {"itemId"},
         parametersConfigs = {ItemEntity.class},
         response = true,
         group = ActionGroupNames.ITEM,
@@ -27,8 +29,10 @@ public class DeleteItemServiceImpl implements Service {
     
     @Override
     public void execute(MessageContext messageContext) {
-        String itemId = messageContext.getParameter("itemId");
+        Map<String, String> parameterMap = messageContext.getParameterMap();
+        String itemId = parameterMap.get("itemId");
         this.itemLocalService.deleteItem(itemId);
+        messageContext.setMapData(parameterMap);
         messageContext.success();
     }
 }

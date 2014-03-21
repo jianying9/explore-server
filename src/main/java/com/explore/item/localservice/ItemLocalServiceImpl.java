@@ -19,13 +19,13 @@ import java.util.Map;
         interfaceInfo = ItemLocalService.class,
         description = "兑换物品操作内部接口")
 public class ItemLocalServiceImpl implements ItemLocalService {
-    
+
     @InjectRDao(clazz = ItemEntity.class)
     private REntityDao<ItemEntity> itemEntityDao;
     //
     @InjectLocalService()
     private KeyLocalService keyLocalService;
-    
+
     @Override
     public void init() {
         //初始化用户表的初始id
@@ -34,24 +34,29 @@ public class ItemLocalServiceImpl implements ItemLocalService {
             this.keyLocalService.updateNextKeyValue(TableNames.ITEM, 100000);
         }
     }
-    
+
     @Override
     public ItemEntity insertItem(Map<String, String> parameterMap) {
         long nextKeyValue = this.keyLocalService.nextKeyValue(TableNames.ITEM);
         parameterMap.put("itemId", Long.toString(nextKeyValue));
         return this.itemEntityDao.insertAndInquire(parameterMap);
     }
-    
+
     @Override
     public void deleteItem(String itemId) {
         this.itemEntityDao.delete(itemId);
     }
-    
+
     @Override
-    public List<ItemEntity> inquireItemEntity(int pageIndex, int pageSize) {
+    public List<ItemEntity> inquireItemEntity(long pageIndex, long pageSize) {
         InquirePageContext inquirePageContext = new InquirePageContext();
         inquirePageContext.setPageIndex(pageIndex);
         inquirePageContext.setPageSize(pageSize);
         return this.itemEntityDao.inquire(inquirePageContext);
+    }
+
+    @Override
+    public long inquireItemCount() {
+        return this.itemEntityDao.count();
     }
 }
