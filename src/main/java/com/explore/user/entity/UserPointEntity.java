@@ -26,15 +26,15 @@ public final class UserPointEntity extends Entity implements Parameter {
     private String userId;
     //
     @ParameterConfig(basicTypeEnum = BasicTypeEnum.INT, desc = "用户赚取的点数")
-    @RColumnConfig(desc = "用户赚取的点数")
+    @RColumnConfig(desc = "用户赚取的点数", defaultValue = "0")
     private long myPoint;
     //
-    @RColumnConfig(desc = "推广赚取的点数")
+    @RColumnConfig(desc = "推广赚取的点数", defaultValue = "0")
     @ParameterConfig(basicTypeEnum = BasicTypeEnum.INT, desc = "推广赚取的点数")
     private long promoterPoint;
     //
     @ParameterConfig(basicTypeEnum = BasicTypeEnum.INT, desc = "历史消费的点数")
-    @RColumnConfig(desc = "历史消费的点数")
+    @RColumnConfig(desc = "历史消费的点数", defaultValue = "0")
     private long consumePoint;
 
     public String getUserId() {

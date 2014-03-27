@@ -22,6 +22,8 @@ public class ActionNames {
     public final static String MAKE_POINT = "MAKE_POINT";
     //消费积分
     public final static String CONSUME_POINT = "CONSUME_POINT";
+    //查询我的积分
+    public final static String INQUIRE_POINT = "INQUIRE_POINT";
     //-------------兑换物品------------------
     //增加物品
     public final static String INSERT_ITEM = "INSERT_ITEM";
