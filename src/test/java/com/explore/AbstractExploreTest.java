@@ -1,9 +1,9 @@
 package com.explore;
 
-import com.explore.session.SessionImpl;
 import com.wolf.framework.config.FrameworkConfig;
 import com.wolf.framework.context.ApplicationContext;
 import com.wolf.framework.session.Session;
+import com.wolf.framework.session.SessionImpl;
 import com.wolf.framework.test.TestHandler;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,12 +23,12 @@ public abstract class AbstractExploreTest {
         parameterMap.put(FrameworkConfig.TASK_CORE_POOL_SIZE, "1");
         parameterMap.put(FrameworkConfig.TASK_MAX_POOL_SIZE, "2");
         //
-        parameterMap.put(FrameworkConfig.REDIS_SERVER_HOST, "192.168.59.99");
+        parameterMap.put(FrameworkConfig.REDIS_SERVER_HOST, "localhost");
         parameterMap.put(FrameworkConfig.REDIS_SERVER_PORT, "6379");
         parameterMap.put(FrameworkConfig.REDIS_MAX_POOL_SIZE, "1");
         parameterMap.put(FrameworkConfig.REDIS_MIN_POOL_SIZE, "2");
         this.testHandler = new TestHandler(parameterMap);
-        Session session = new SessionImpl("100001");
+        Session session = new SessionImpl("admin");
         this.testHandler.setSession(session);
     }
 

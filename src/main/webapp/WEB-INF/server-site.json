@@ -8,7 +8,7 @@
         "describe": "扫描注解包名集合，例如com.wolf,com.pig"
     },
     "task.core.pool.size": {
-        "value": "2",
+        "value": "10",
         "describe": "线程空闲存活数量"
     },
     "task.max.pool.size": {
@@ -16,7 +16,7 @@
         "describe": "线程最大存活数量"
     },
     "redis.server.host": {
-        "value": "127.0.0.1",
+        "value": "localhost",
         "describe": "redis服务器ip"
     },
     "redis.server.port": {

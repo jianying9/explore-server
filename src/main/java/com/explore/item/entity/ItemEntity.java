@@ -5,10 +5,6 @@ import com.wolf.framework.dao.Entity;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.RColumnConfig;
 import com.wolf.framework.dao.annotation.RDaoConfig;
-import com.wolf.framework.data.BasicTypeEnum;
-import com.wolf.framework.service.parameter.Parameter;
-import com.wolf.framework.service.parameter.ParameterConfig;
-import com.wolf.framework.service.parameter.ParametersConfig;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,28 +15,28 @@ import java.util.Map;
  */
 @RDaoConfig(
         tableName = TableNames.ITEM)
-@ParametersConfig()
-public final class ItemEntity extends Entity implements Parameter {
+public final class ItemEntity extends Entity {
 
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.LONG, desc = "物品id")
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.KEY, desc = "物品id")
     private String itemId;
     //
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_32, desc = "名称")
     @RColumnConfig(desc = "名称")
     private String itemName;
     //
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.IMAGE, desc = "图片文件内容")
-    @RColumnConfig(desc = "文件内容")
-    private String dataUrl;
+    @RColumnConfig(desc = "文件路径")
+    private String fileUrl;
     //
     @RColumnConfig(desc = "描述")
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_120, desc = "密码md5")
     private String desc;
     //
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.LONG, desc = "花费点数")
-    @RColumnConfig(desc = "花费点数")
-    private long point;
+    @RColumnConfig(desc = "出售价格(分)")
+    private long price;
+    //
+    @RColumnConfig(desc = "成本(分)")
+    private long cost;
+    //
+    @RColumnConfig(desc = "折扣百分比")
+    private long discount;
 
     public String getItemId() {
         return itemId;
@@ -51,16 +47,29 @@ public final class ItemEntity extends Entity implements Parameter {
     }
 
     public String getDataUrl() {
-        return dataUrl;
+        return fileUrl;
     }
 
     public String getDesc() {
         return desc;
     }
 
-    public long getPoint() {
-        return point;
+    public String getFileUrl() {
+        return fileUrl;
     }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public long getCost() {
+        return cost;
+    }
+
+    public long getDiscount() {
+        return discount;
+    }
+
 
     @Override
     public String getKeyValue() {
@@ -72,9 +81,11 @@ public final class ItemEntity extends Entity implements Parameter {
         Map<String, String> map = new HashMap<String, String>(8, 1);
         map.put("itemId", this.itemId);
         map.put("itemName", this.itemName);
-        map.put("dataUrl", this.dataUrl);
+        map.put("fileUrl", this.fileUrl);
         map.put("desc", this.desc);
-        map.put("point", Long.toString(this.point));
+        map.put("price", Long.toString(this.price));
+        map.put("cost", Long.toString(this.cost));
+        map.put("discount", Long.toString(this.discount));
         return map;
     }
 
@@ -82,8 +93,10 @@ public final class ItemEntity extends Entity implements Parameter {
     protected void parseMap(Map<String, String> entityMap) {
         this.itemId = entityMap.get("itemId");
         this.itemName = entityMap.get("itemName");
-        this.dataUrl = entityMap.get("dataUrl");
+        this.fileUrl = entityMap.get("fileUrl");
         this.desc = entityMap.get("desc");
-        this.point = Long.parseLong(entityMap.get("point"));
+        this.price = Long.parseLong(entityMap.get("price"));
+        this.cost = Long.parseLong(entityMap.get("cost"));
+        this.discount = Long.parseLong(entityMap.get("discount"));
     }
 }

@@ -15,7 +15,7 @@ public interface ItemLocalService extends Local {
     
     public void deleteItem(String itemId);
     
-    public List<ItemEntity> inquireItemEntity(long pageIndex, long pageSize);
+    public List<ItemEntity> inquireItem(long pageIndex, long pageSize);
     
     public long inquireItemCount();
 }

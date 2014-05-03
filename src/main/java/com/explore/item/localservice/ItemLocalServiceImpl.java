@@ -48,7 +48,7 @@ public class ItemLocalServiceImpl implements ItemLocalService {
     }
 
     @Override
-    public List<ItemEntity> inquireItemEntity(long pageIndex, long pageSize) {
+    public List<ItemEntity> inquireItem(long pageIndex, long pageSize) {
         InquirePageContext inquirePageContext = new InquirePageContext();
         inquirePageContext.setPageIndex(pageIndex);
         inquirePageContext.setPageSize(pageSize);

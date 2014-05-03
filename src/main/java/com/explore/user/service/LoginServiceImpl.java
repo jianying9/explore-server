@@ -3,15 +3,18 @@ package com.explore.user.service;
 import com.explore.config.ActionGroupNames;
 import com.explore.config.ActionNames;
 import com.explore.config.ResponseFlags;
-import com.explore.session.SessionImpl;
 import com.explore.user.entity.UserEntity;
 import com.explore.user.localservice.UserLocalService;
+import com.wolf.framework.data.TypeEnum;
 import com.wolf.framework.local.InjectLocalService;
 import com.wolf.framework.service.ResponseFlag;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
 import com.wolf.framework.service.SessionHandleTypeEnum;
+import com.wolf.framework.service.parameter.InputConfig;
+import com.wolf.framework.service.parameter.OutputConfig;
 import com.wolf.framework.session.Session;
+import com.wolf.framework.session.SessionImpl;
 import com.wolf.framework.worker.context.MessageContext;
 import java.util.Map;
 
@@ -21,9 +24,15 @@ import java.util.Map;
  */
 @ServiceConfig(
         actionName = ActionNames.LOGIN,
-        importantParameter = {"userEmail", "password"},
-        returnParameter = {"userId", "userEmail", "nickName"},
-        parametersConfigs = {UserEntity.class},
+        importantParameter = {
+            @InputConfig(name = "password", typeEnum = TypeEnum.CHAR_32, desc = "密码"),
+            @InputConfig(name = "userEmail", typeEnum = TypeEnum.CHAR_32, desc = "昵称或者邮箱")
+        },
+        returnParameter = {
+            @OutputConfig(name = "userId", typeEnum = TypeEnum.CHAR_32, desc = "用户id"),
+            @OutputConfig(name = "userEmail", typeEnum = TypeEnum.CHAR_32, desc = "邮箱"),
+            @OutputConfig(name = "nickName", typeEnum = TypeEnum.CHAR_32, desc = "昵称")
+        },
         validateSession = false,
         sessionHandleTypeEnum = SessionHandleTypeEnum.SAVE,
         response = true,

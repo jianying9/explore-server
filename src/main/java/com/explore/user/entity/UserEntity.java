@@ -5,10 +5,6 @@ import com.wolf.framework.dao.Entity;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.RColumnConfig;
 import com.wolf.framework.dao.annotation.RDaoConfig;
-import com.wolf.framework.data.BasicTypeEnum;
-import com.wolf.framework.service.parameter.Parameter;
-import com.wolf.framework.service.parameter.ParameterConfig;
-import com.wolf.framework.service.parameter.ParametersConfig;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,30 +15,20 @@ import java.util.Map;
  */
 @RDaoConfig(
         tableName = TableNames.USER)
-@ParametersConfig()
-public final class UserEntity extends Entity implements Parameter {
+public final class UserEntity extends Entity {
 
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.LONG, desc = "用户id")
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.KEY, desc = "用户ID")
     private String userId;
     //
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_32, desc = "昵称")
     @RColumnConfig(desc = "昵称")
     private String nickName;
     //
     @RColumnConfig(desc = "密码md5")
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_32, desc = "密码md5")
     private String password;
     //
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_60, desc = "邮箱")
     @RColumnConfig(desc = "邮箱")
     private String userEmail;
     //
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.LONG, desc = "推广人")
-    @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "推广人")
-    private String promoter;
-    //
-    @ParameterConfig(basicTypeEnum = BasicTypeEnum.DATE_TIME, desc = "注册时间")
     @RColumnConfig(desc = "注册时间")
     private long createTime;
 
@@ -62,10 +48,6 @@ public final class UserEntity extends Entity implements Parameter {
         return userEmail;
     }
 
-    public String getPromoter() {
-        return promoter;
-    }
-    
     public long getCreateTime() {
         return createTime;
     }
@@ -82,7 +64,6 @@ public final class UserEntity extends Entity implements Parameter {
         map.put("nickName", this.nickName);
         map.put("password", this.password);
         map.put("userEmail", this.userEmail);
-        map.put("promoter", this.promoter);
         map.put("createTime", Long.toString(this.createTime));
         return map;
     }
@@ -93,7 +74,6 @@ public final class UserEntity extends Entity implements Parameter {
         this.nickName = entityMap.get("nickName");
         this.password = entityMap.get("password");
         this.userEmail = entityMap.get("userEmail");
-        this.promoter = entityMap.get("promoter");
         this.createTime = Long.parseLong(entityMap.get("createTime"));
     }
 }

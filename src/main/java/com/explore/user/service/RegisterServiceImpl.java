@@ -5,9 +5,12 @@ import com.explore.config.ActionNames;
 import com.explore.config.ResponseFlags;
 import com.explore.user.entity.UserEntity;
 import com.explore.user.localservice.UserLocalService;
+import com.wolf.framework.data.TypeEnum;
 import com.wolf.framework.local.InjectLocalService;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
+import com.wolf.framework.service.parameter.InputConfig;
+import com.wolf.framework.service.parameter.OutputConfig;
 import com.wolf.framework.worker.context.MessageContext;
 import java.util.Map;
 
@@ -17,10 +20,19 @@ import java.util.Map;
  */
 @ServiceConfig(
         actionName = ActionNames.REGISTER,
-        importantParameter = {"nickName", "userEmail", "password"},
-        minorParameter = {"promoter"},
-        returnParameter = {"userId", "userEmail", "nickName"},
-        parametersConfigs = {UserEntity.class},
+        importantParameter = {
+            @InputConfig(name = "password", typeEnum = TypeEnum.CHAR_32, desc = "密码"),
+            @InputConfig(name = "userEmail", typeEnum = TypeEnum.CHAR_32, desc = "邮箱"),
+            @InputConfig(name = "nickName", typeEnum = TypeEnum.CHAR_32, desc = "昵称")
+        },
+        minorParameter = {
+            @InputConfig(name = "promoter", typeEnum = TypeEnum.CHAR_32, desc = "推广人id")
+        },
+        returnParameter = {
+            @OutputConfig(name = "userId", typeEnum = TypeEnum.CHAR_32, desc = "用户id"),
+            @OutputConfig(name = "userEmail", typeEnum = TypeEnum.CHAR_32, desc = "邮箱"),
+            @OutputConfig(name = "nickName", typeEnum = TypeEnum.CHAR_32, desc = "昵称")
+        },
         validateSession = false,
         response = true,
         requireTransaction = true,

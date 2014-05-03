@@ -10,6 +10,8 @@ import com.wolf.framework.dao.REntityDao;
 import com.wolf.framework.dao.annotation.InjectRDao;
 import com.wolf.framework.local.InjectLocalService;
 import com.wolf.framework.local.LocalServiceConfig;
+import com.wolf.framework.utils.SecurityUtils;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,11 +41,25 @@ public class UserLocalServiceImpl implements UserLocalService {
 
     @Override
     public void init() {
-        //初始化用户表的初始id
-        long value = this.keyLocalService.getNextKeyValue(TableNames.USER);
-        if (value <= 100000) {
-            this.keyLocalService.updateNextKeyValue(TableNames.USER, 100000);
+        //初始化admin用户
+        UserEntity adminEntity = this.userEntityDao.inquireByKey(ADMIN_ID);
+        if (adminEntity == null) {
+            final String userEmail = "ljy18659199765@gmail.com";
+            final String nickName = "admin";
+            final String password = SecurityUtils.encryptByMd5("zjp19881024");
+            Map<String, String> adminMap = new HashMap<String, String>(4, 1);
+            adminMap.put("userId", ADMIN_ID);
+            adminMap.put("userEmail", userEmail);
+            adminMap.put("nickName", nickName);
+            adminMap.put("password", password);
+            adminMap.put("createTime", Long.toString(System.currentTimeMillis()));
+            this.userEntityDao.insert(adminMap);
         }
+    }
+    
+    @Override
+    public UserEntity inquireAdminUser() {
+        return this.userEntityDao.inquireByKey(ADMIN_ID);
     }
 
     @Override
@@ -121,11 +137,6 @@ public class UserLocalServiceImpl implements UserLocalService {
     @Override
     public long increaseMyPoint(String userId, long point) {
         return this.userPointEntityDao.increase(userId, "myPoint", point);
-    }
-
-    @Override
-    public long increasePromoterPoint(String userId, long point) {
-        return this.userPointEntityDao.increase(userId, "promoterPoint", point);
     }
 
     @Override

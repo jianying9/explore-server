@@ -32,4 +32,8 @@ public class ActionNames {
     //删除物品
     public final static String INQUIRE_ITEM = "INQUIRE_ITEM";
     
+    //-------------------admin--------------------//
+  //登录
+    public final static String ADMIN_LOGIN = "ADMIN_LOGIN";
+    
 }

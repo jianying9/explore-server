@@ -5,10 +5,12 @@ import com.explore.config.ActionNames;
 import com.explore.config.ResponseFlags;
 import com.explore.user.entity.UserEntity;
 import com.explore.user.localservice.UserLocalService;
+import com.wolf.framework.data.TypeEnum;
 import com.wolf.framework.local.InjectLocalService;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
 import com.wolf.framework.service.SessionHandleTypeEnum;
+import com.wolf.framework.service.parameter.OutputConfig;
 import com.wolf.framework.session.Session;
 import com.wolf.framework.worker.context.MessageContext;
 
@@ -18,8 +20,10 @@ import com.wolf.framework.worker.context.MessageContext;
  */
 @ServiceConfig(
         actionName = ActionNames.LOGOUT,
-        returnParameter = {"nickName", "userId"},
-        parametersConfigs = {UserEntity.class},
+        returnParameter = {
+    @OutputConfig(name = "userId", typeEnum = TypeEnum.CHAR_32, desc = "用户id"),
+    @OutputConfig(name = "nickName", typeEnum = TypeEnum.CHAR_32, desc = "昵称")
+},
         sessionHandleTypeEnum = SessionHandleTypeEnum.REMOVE,
         response = true,
         group = ActionGroupNames.USER,
@@ -32,7 +36,7 @@ public class LogoutServiceImpl implements Service {
     @Override
     public void execute(MessageContext messageContext) {
         Session session = messageContext.getSession();
-        String userId = session.getUserId();
+        String userId = session.getSid();
         UserEntity userEntity = this.userLocalService.inquireUserByUserId(userId);
         if (userEntity == null) {
             messageContext.setFlag(ResponseFlags.FAILURE_USER_ID_NOT_EXIST);

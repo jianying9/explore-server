@@ -11,6 +11,10 @@ import java.util.Map;
  * @author aladdin
  */
 public interface UserLocalService extends Local {
+    
+    public String ADMIN_ID = "admin";
+    
+    public UserEntity inquireAdminUser();
 
     public boolean isUserEmailExist(String userEmail);
 
@@ -31,8 +35,6 @@ public interface UserLocalService extends Local {
     public UserPointEntity inquireUserPointByUserId(String userId);
     
     public long increaseMyPoint(String userId, long point);
-    
-    public long increasePromoterPoint(String userId, long point);
     
     public long increaseConsumePoint(String userId, long point);
 }
